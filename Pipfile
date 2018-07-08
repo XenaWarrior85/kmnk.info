@@ -10,5 +10,7 @@ python_version = "3.5"
 django = "*"
 python-decouple = "*"
 dj-database-url = "*"
+whitenoise = "*"
+gunicorn = "*"
 
 [dev-packages]

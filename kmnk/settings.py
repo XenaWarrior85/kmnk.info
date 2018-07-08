@@ -11,6 +11,9 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 """
 
 import os
+import dj_database_url
+from decouple import config, UndefinedValueErrorimport dj_database_url
+from decouple import config, UndefinedValueError
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -20,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'zd_$5$hzzbrskzf9f%u01(7ld32+r8gt&n#x0xv*7+g!uo$8d*'
+SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -37,9 +40,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'kmnk',
 ]
 
 MIDDLEWARE = [
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -73,12 +78,25 @@ WSGI_APPLICATION = 'kmnk.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+DATABASES = {'default': {}}
+try:
+    DATABASES = {
+        'default': {
+                    'ENGINE': config('DB_ENGINE'),
+                    'NAME': config('DB_NAME'),
+                    'USER': config('DB_USER'),
+                    'PASSWORD': config('DB_PASSWORD'),
+                    'HOST': config('DB_HOST'),
+                    'PORT': '5432',
+            #'OPTIONS': {
+            #    'init_command': 'SET innodb_strict_mode=1',
+            #    'init_command': "SET sql_mode='STRICT_TRANS_TABL
+            #},
+        }
     }
-}
+except UndefinedValueError:
+    db_from_env = dj_database_url.config()
+    DATABASES['default'].update(db_from_env)
 
 
 # Password validation
@@ -118,3 +136,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'static'),
+)
+
+
