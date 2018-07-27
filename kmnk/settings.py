@@ -30,6 +30,8 @@ DEBUG = True
 ALLOWED_HOSTS = [
     '.kmnk.herokuapp.com',
     '127.0.0.1',
+    'kmnk.info',
+    'www.kmnk.info',
 ]
 
 
