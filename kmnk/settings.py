@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'kmnk',
     'place',
+    'rest_framework'
 ]
 
 MIDDLEWARE = [
@@ -147,4 +148,6 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
 
+DADATA_KEY = ""
+DADATA_SECRET = ""
 
