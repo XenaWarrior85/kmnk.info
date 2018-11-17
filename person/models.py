@@ -8,10 +8,11 @@ class Person(models.Model):
     birthday = models.DateField('Дата рождения', null=True, blank=True)
 
     def __str__(self):
-        return '{first_name}, {third_name} ({birthday})'.format(
+        return '{second_name} {first_name} {third_name}({birthday})'.format(
             first_name=self.first_name,
+            second_name=self.second_name,
             third_name=self.third_name,
-            birthday=self.birthday.strftime('%Y-%m-%d')
+            birthday=self.birthday.strftime('%d-%m-%y')
         )
 
     class Meta:
