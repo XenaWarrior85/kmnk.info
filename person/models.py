@@ -26,4 +26,4 @@ class Galery(models.Model):
 
     class Meta:
         verbose_name = 'Галерея'
-        verbose_name_plural = 'Галерея'
+        verbose_name_plural = 'Галереи'
