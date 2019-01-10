@@ -2,6 +2,7 @@ from django.db import models
 
 
 class Person(models.Model):
+    id = models.AutoField(primary_key=True, unique=True)
     first_name = models.CharField('Имя', max_length=100, null=True, blank=True)
     second_name = models.CharField('Фамилия', max_length=100, null=True, blank=True)
     third_name = models.CharField('Отчество', max_length=100, null=True, blank=True)
@@ -12,7 +13,7 @@ class Person(models.Model):
             first_name=self.first_name,
             second_name=self.second_name,
             third_name=self.third_name,
-            birthday=self.birthday.strftime('%d-%m-%y')
+            birthday=self.birthday
         )
 
     class Meta:
@@ -21,9 +22,18 @@ class Person(models.Model):
 
 
 class Galery(models.Model):
-    image = models.ImageField('Фото', upload_to='person_photo', null=True, blank=True)
+    image = models.ImageField(upload_to='person_photo', null=True, blank=True, default='')
     person = models.ForeignKey(Person, on_delete=models.CASCADE, null=True, related_name='galery')
 
     class Meta:
         verbose_name = 'Галерея'
         verbose_name_plural = 'Галереи'
+
+    # Отображение пути к фотографии
+    @property
+    def image_url(self):
+        if self.image and hasattr (self.image, 'url'):
+            return self.image.url
+
+
+
