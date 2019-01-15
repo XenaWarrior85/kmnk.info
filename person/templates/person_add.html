@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{{ id }}
+        {% if sent %}
+            <h3>Пользователь создан</h3>
+        {% endif %}
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ user_form.as_p }}
+            {{ person_form.as_p }}
+            {{ image_form.as_p }}
+            <input type="submit" value="Сохранить редактирование">
+        </form>
+</body>
+</html>

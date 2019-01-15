@@ -12,7 +12,6 @@ class GaleryInline(admin.TabularInline):
 
 
 class PersonAdmin(admin.ModelAdmin):
-    list_display = ('first_name', 'second_name', 'third_name', 'birthday')
     inlines = [GaleryInline, ]
 
 

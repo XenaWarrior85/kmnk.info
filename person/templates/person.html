@@ -4,14 +4,16 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Пользователь {{ person.first_name }}</title>
+    <title>Пользователь</title>
 </head>
 <body>
-{#{% block content %}#}
+    <a href="{% url 'add_person' person.id %}">Добавить пользователя</a>
+    <a href="{% url 'edit_person' person.id %}">Редактировать пользователя</a>
     <h1>Данные пользователя:</h1>
     <ul>
-        <li><strong>Полное ФИО:</strong> {{  person.first_name}} {{  person.second_name}}
-        {{  person.third_name}}</li>
+        <li><strong>Никнейм:</strong> {{  person.users}}</li>
+        <li><strong>Полное ФИО:</strong>  {{  person.third_name}}  {{  person.first_name}}
+        {{  person.second_name}} </li>
         <li><strong>Дата рождения:</strong> {{  person.birthday}}</li>
         <li><strong>Фотогорафии: </strong>
         {% for i in image %}
@@ -21,6 +23,7 @@
         {% endfor %}
         </li>
     </ul>
+
 
 
 
