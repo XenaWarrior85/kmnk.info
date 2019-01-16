@@ -32,6 +32,7 @@ ALLOWED_HOSTS = [
     '127.0.0.1',
     'kmnk.info',
     'www.kmnk.info',
+    'powerful-oasis-80558.herokuapp.com'
 ]
 
 
