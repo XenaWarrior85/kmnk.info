@@ -93,10 +93,10 @@ try:
     DATABASES = {
         'default': {
                 'ENGINE': 'django.db.backends.postgresql_psycopg2',
-                'NAME': 'test40',
-                'USER': 'postgres',
-                'PASSWORD': 'den',
-                'HOST': 'localhost',
+                'NAME': 'd21vgudanomlqn',
+                'USER': 'mfofeslrrsciop',
+                'PASSWORD': 'bb45e6d211982a84afa46642cde434686685c4365092e2213702ec1376a91056',
+                'HOST': 'ec2-107-22-162-8.compute-1.amazonaws.com',
                 'PORT': '5432',
             #'OPTIONS': {
             #    'init_command': 'SET innodb_strict_mode=1',
