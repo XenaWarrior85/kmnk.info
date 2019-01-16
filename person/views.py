@@ -10,7 +10,7 @@ from  django.contrib.auth import authenticate, login
 
 def person(request, id):
     """
-    Функция отображения профиля пользователя
+    Функция отображения профиля персоны
     """
     person = get_object_or_404(Person, id=id)
     image = Galery.objects.filter(person_id=id)
@@ -23,7 +23,9 @@ def person(request, id):
 
 def add_person(request, id):
     """
-      Функция добавления профиля пользователя
+      Функция добавления профиля персоны
+      user_form -  работает из админки и содержит поля username и пароля пользвоателя
+      person_form -  содержит поля из модели персоны
     """
     user_form = UserForm()
     image_form = ImageForm()
@@ -65,7 +67,9 @@ def add_person(request, id):
 
 def edit_person(request, id):
     """
-      Функция редактирования профиля пользователя
+      Функция редактирования персоны
+      user_form -  работает из админки и содержит поля username и пароля пользвоателя
+      person_form -  содержит поля из модели персоны
     """
     users_id = Person.objects.get(id=id).users_id
     user_form = UserForm(instance=User.objects.get(id=int(users_id)))

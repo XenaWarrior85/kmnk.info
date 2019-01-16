@@ -4,7 +4,8 @@ from django.contrib.auth.models import User
 
 
 class UserForm(forms.ModelForm):
-    # Добавление формы юзера
+    # Класс формы которая расширяет функционал админки и добавляет поля username и пароль
+    # на страницу добавления и редактирования персоны
     password = forms.CharField(widget=forms.PasswordInput)
 
     class Meta:
@@ -13,7 +14,8 @@ class UserForm(forms.ModelForm):
 
 
 class PersonForm(forms.ModelForm):
-    # Добавление формы персоны
+    # Класс формы для добавления персоны
+    # проверить дублировнаие first name second name
 
     class Meta:
         model = Person
@@ -21,7 +23,7 @@ class PersonForm(forms.ModelForm):
 
 
 class ImageForm(forms.ModelForm):
-    # Добавление формы фото
+    # класс формы для добавления изображения персоны
 
     class Meta:
         model = Galery
