@@ -10,10 +10,10 @@
 {#{% block content %}#}
     <h1>Данные пользователя:</h1>
     <ul>
-        <li><strong>Полное ФИО:</strong> {{  person.first_name}} {{  person.second_name}}
+        <li><strong>Полное ФИО:</strong> {{  person.second_name}} {{  person.first_name}}
         {{  person.third_name}}</li>
         <li><strong>Дата рождения:</strong> {{  person.birthday}}</li>
-        <li><strong>Фотогорафии: </strong>
+        <li><strong>Фотографии: </strong>
         {% for i in image %}
             {% if i.image %}
                 <img src="{{i.image_url }}" alt="{{ person.first_name }}"  width="250" height="250">
