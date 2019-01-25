@@ -19,7 +19,6 @@ whitenoise = "*"
 gunicorn = "*"
 "psycopg2" = "*"
 djangorestframework = "*"
-
+Pillow = "*"
 
 [dev-packages]
-

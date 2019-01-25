@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<a href="{% url 'person' id %}">Вернуться на страницу</a>
+<a href="{% url 'authapp-logout' %}">Выход из аккаунта</a>
+
+        {% if sent %}
+            <h3>Пользователь обновлён</h3>
+        {% endif %}
+
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+{# Отображение телефона пользователя           {{ user_form.as_p }}#}
+            {{ person_form.as_p }}
+            {{ image_form.as_p }}
+            <input type="submit" value="Сохранить редактирование">
+        </form>
+</body>
+</html>
