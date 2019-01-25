@@ -21,6 +21,4 @@ gunicorn = "*"
 djangorestframework = "*"
 Pillow = "*"
 
-
 [dev-packages]
-
