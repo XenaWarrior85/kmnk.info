@@ -5,10 +5,13 @@
     <title>Title</title>
 </head>
 <body>
-{{ id }}
+<a href="{% url 'person' id %}">Вернуться на страницу</a>
+<a href="{% url 'authapp-logout' %}">Выход из аккаунта</a>
+
         {% if sent %}
             <h3>Пользователь создан</h3>
         {% endif %}
+
         <form method="POST" enctype="multipart/form-data">
             {% csrf_token %}
             {{ user_form.as_p }}
@@ -16,5 +19,6 @@
             {{ image_form.as_p }}
             <input type="submit" value="Сохранить редактирование">
         </form>
+
 </body>
 </html>

@@ -45,7 +45,9 @@ INSTALLED_APPS = [
     'kmnk',
     'kmnk_main',
     'place',
-    'person'
+    'person',
+    'registration',
+    'django_tables2'
 ]
 
 MIDDLEWARE = [
@@ -87,12 +89,12 @@ DATABASES = {'default': {}}
 try:
     DATABASES = {
         'default': {
-                    'ENGINE': config('DB_ENGINE'),
-                    'NAME': config('DB_NAME'),
-                    'USER': config('DB_USER'),
-                    'PASSWORD': config('DB_PASSWORD'),
-                    'HOST': config('DB_HOST'),
-                    'PORT': '5432',
+                'ENGINE': config('DB_ENGINE'),
+                'NAME': config('DB_NAME'),
+                'USER': config('DB_USER'),
+                'PASSWORD': config('DB_PASSWORD'),
+                'HOST': config('DB_HOST'),
+                'PORT': '5432'
             #'OPTIONS': {
             #    'init_command': 'SET innodb_strict_mode=1',
             #    'init_command': "SET sql_mode='STRICT_TRANS_TABL
