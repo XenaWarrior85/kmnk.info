@@ -20,5 +20,6 @@ gunicorn = "*"
 "psycopg2" = "*"
 djangorestframework = "*"
 Pillow = "*"
+django-tables2 = "*"
 
 [dev-packages]
