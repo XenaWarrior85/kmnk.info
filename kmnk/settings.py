@@ -19,7 +19,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '2b1e0efd-bf60-473b-a975-74caa7c252da'
+SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -89,7 +89,7 @@ DATABASES = {'default': {}}
 try:
     DATABASES = {
         'default': dj_database_url.config(
-            default='postgres://labzicvykhfaiz:1e19b3c1fcfc1caf459f124ff7c11c8e5023cb7456fc143d1e78352a347ced4c@ec2-54-235-67-106.compute-1.amazonaws.com:5432/d80ks0b6su3hbr'
+            default=config('DATABASE_URL')
         )
     }
 except UndefinedValueError:
