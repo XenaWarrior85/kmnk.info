@@ -19,7 +19,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '2b1e0efd-bf60-473b-a975-74caa7c252da'
+SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -88,18 +88,9 @@ WSGI_APPLICATION = 'kmnk.wsgi.application'
 DATABASES = {'default': {}}
 try:
     DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql_psycopg2',
-                'NAME': 'd21vgudanomlqn',
-                'USER': 'mfofeslrrsciop',
-                'PASSWORD': 'bb45e6d211982a84afa46642cde434686685c4365092e2213702ec1376a91056',
-                'HOST': 'ec2-107-22-162-8.compute-1.amazonaws.com',
-                'PORT': '5432'
-            #'OPTIONS': {
-            #    'init_command': 'SET innodb_strict_mode=1',
-            #    'init_command': "SET sql_mode='STRICT_TRANS_TABL
-            #},
-        }
+        'default': dj_database_url.config(
+            default=config('DATABASE_URL')
+        )
     }
 except UndefinedValueError:
     db_from_env = dj_database_url.config()
