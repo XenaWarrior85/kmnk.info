@@ -29,6 +29,7 @@ ALLOWED_HOSTS = [
     '127.0.0.1',
     'kmnk.info',
     'www.kmnk.info',
+    'demo-bootcamp32.herokuapp.com',
 ]
 
 
