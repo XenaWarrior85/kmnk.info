@@ -1,0 +1,38 @@
+
+{% load bootstrap3 %}
+
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
+
+{% bootstrap_messages %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Регистрация</title>
+</head>
+<body>
+  {% for message in messages %}
+    <div class="text-danger">
+{#                        <a class="close" href="#" data-dismiss="alert">×</a>#}
+        <h4>{{ message }}</h4>
+    </div>
+{% endfor %}
+
+    <form method="POST" enctype="multipart/form-data" class="form">
+        {% csrf_token %}
+
+        {% bootstrap_form user_form layout='horizontal' error_types='all'%}
+
+        {% buttons %}
+        <button type="submit" name="code" {{ disabled }} class="btn btn-primary center-block"
+        style="margin-bottom: 20px;">Отправить код</button>
+            {% bootstrap_form sms_form layout='horizontal' error_types='all' %}
+        <button type="submit" name="reg" {{ disabled2 }} class="btn btn-primary center-block">Зарегистрироваться</button>
+        {% endbuttons %}
+    </form>
+
+</body>
+</html>

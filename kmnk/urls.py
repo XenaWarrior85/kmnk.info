@@ -14,28 +14,24 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 
-from django.conf.urls import url
 from person import views
+from registration import views as wi
 from django.urls import path, include
 from django.contrib import admin
 from django.conf.urls.static import static
 from django.conf import settings
-# from kmnk_main import views
-from django.contrib.auth.views import LoginView, LogoutView
-
-from django.contrib.auth import views as auth_views
-
+from django.contrib.auth.views import LogoutView
 
 urlpatterns = [
-    path ('', include('kmnk_main.urls')),
-    path ('admin/', admin.site.urls),
-    path ('<int:id>/', views.person, name='person'),
-    path ('<int:id>/add', views.add_person, name='add_person'),
-    path ('<int:id>/edit', views.edit_person, name='edit_person'),
-    path ('login/', LoginView.as_view (template_name='login.html'),
-          name='authapp-login'),
-    path('logout/', LogoutView.as_view(next_page='/'),
-             name='authapp-logout'),
+    path('', include('kmnk_main.urls')),
+    path('admin/', admin.site.urls),
+    path('<int:id>/', views.person, name='person'),
+    path('<int:id>/add', views.add_person, name='add_person'),
+    path('<int:id>/edit', views.edit_person, name='edit_person'),
+    path('login/', wi.MyLoginView, name='authapp-login'),
+    path('logout/', LogoutView.as_view(next_page='/'), name='authapp-logout'),
+    path('registration/', wi.registration, name="signup"),
+    path('admin_view/', wi.admin_add_person, name="admin_view")
 
 ]
 
