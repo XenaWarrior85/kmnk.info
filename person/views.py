@@ -102,7 +102,7 @@ def edit_person(request, id):
             new_image.save()
             return HttpResponseRedirect('{}?sent=True'.format(reverse('edit_person', kwargs={'id': id})))
 
-    return render(request, 'person_add.html',
+    return render(request, 'person_edit.html',
                    {"user_form": user_form,
                     "id": id,
                     "image_form": image_form,

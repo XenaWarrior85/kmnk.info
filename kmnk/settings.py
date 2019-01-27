@@ -48,7 +48,8 @@ INSTALLED_APPS = [
     'place',
     'person',
     'registration',
-    'django_tables2'
+    'django_tables2',
+    'bootstrap3',
 ]
 
 MIDDLEWARE = [

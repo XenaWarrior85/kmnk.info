@@ -1,3 +1,10 @@
+{% load bootstrap3 %}
+
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
+
+{% bootstrap_messages %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,19 +12,21 @@
     <title>Title</title>
 </head>
 <body>
-<a href="{% url 'person' id %}">Вернуться на страницу</a>
-<a href="{% url 'authapp-logout' %}">Выход из аккаунта</a>
+<a class="btn btn-primary btn-sm" href="{% url 'person' id %}" role="button">Вернуться на страницу</a>
+<a class="btn btn-primary btn-sm" href="{% url 'authapp-logout' %}" role="button">Выход из аккаунта</a>
 
         {% if sent %}
             <h3>Пользователь обновлён</h3>
         {% endif %}
 
-        <form method="POST" enctype="multipart/form-data">
+         <form method="POST" enctype="multipart/form-data" class="form">
             {% csrf_token %}
-{# Отображение телефона пользователя           {{ user_form.as_p }}#}
-            {{ person_form.as_p }}
-            {{ image_form.as_p }}
-            <input type="submit" value="Сохранить редактирование">
+            {% bootstrap_form user_form layout='horizontal' error_types='all'%}
+            {% bootstrap_form person_form layout='horizontal' error_types='all'%}
+            {% bootstrap_form image_form layout='horizontal' error_types='all'%}
+            {% buttons %}
+            <input type="submit" value="Сохранить редактирование" class="btn btn-primary center-block" align="right">
+             {% endbuttons %}
         </form>
 </body>
 </html>
