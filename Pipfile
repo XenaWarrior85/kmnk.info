@@ -21,6 +21,7 @@ gunicorn = "*"
 djangorestframework = "*"
 Pillow = "*"
 django-tables2 = "*"
+django-bootstrap3 = "*"
 
 [dev-packages]
 
