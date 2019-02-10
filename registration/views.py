@@ -5,13 +5,11 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
 from .smsc_api import *
 import uuid
-import json
 
 from django.http import JsonResponse
 from django.contrib import messages
 from django.shortcuts import redirect
-from django.http import HttpResponseBadRequest
-from django.http import HttpResponse
+
 
 counter,mes = "1","1"
 
@@ -55,10 +53,10 @@ def registration(request):
             phone = user_form.cleaned_data['username']
             mes = my_random_string(4)
             print(mes)
-            mes = "5"
-            counter = ['19', '1', '0.9', '194.4' ]
-            d = [ '-1' ]
-            # counter = smsc.send_sms(phones=phone, message=mes, sender="me") # Отправка смс с
+            # mes = "5"
+            # counter = ['19', '1', '0.9', '194.4' ]
+            # d = [ '-1' ]
+            counter = smsc.send_sms(phones=phone, message=mes, sender="me") # Отправка смс с
             # введёными данными пользователя
             status_phone = smsc.get_status(phone=phone, id=counter[0])
             print(status_phone)
