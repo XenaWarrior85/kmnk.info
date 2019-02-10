@@ -6,7 +6,7 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
-
+from django.http import JsonResponse
 
 def person(request, id):
     """
@@ -30,6 +30,14 @@ def add_person(request, id):
     user_form = UserForm()
     image_form = ImageForm()
     person_form = PersonForm()
+
+    if request.is_ajax():
+        user_form = UserForm(request.POST)
+
+        if user_form.is_valid():
+            return JsonResponse({'s': True})
+        else:
+            return JsonResponse({'error': user_form.errors})
 
     if request.method == "POST":
 
@@ -84,6 +92,15 @@ def edit_person(request, id):
         ImageForm2 = None
     image_form = ImageForm(instance=ImageForm2)
     person_form = PersonForm(instance=Person.objects.get(id=id))
+
+    if request.is_ajax():
+        user_form = UserForm(request.POST)
+
+        if user_form.is_valid():
+            return JsonResponse({'s': True})
+        else:
+            return JsonResponse({'error': user_form.errors})
+
 
     if request.method == "POST":
         user_form = UserForm(request.POST, instance=User.objects.get(id=users_id))

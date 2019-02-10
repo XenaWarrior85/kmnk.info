@@ -52,6 +52,12 @@ class PersonForm(forms.ModelForm):
     class Meta:
         model = Person
         fields = ( 'first_name', 'second_name', 'third_name', 'birthday', 'id')
+        help_texts = {
+            'first_name': 'Поле обязательно',
+            'second_name': 'Поле обязательно',
+            'third_name': 'Поле обязательно',
+            'birthday': 'Поле обязательно',
+        }
 
 
 class ImageForm(forms.ModelForm):
