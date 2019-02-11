@@ -1,21 +1,7 @@
-{#{% extends "main.html" %}#}
-
-{% load bootstrap3 %}
-
-{% bootstrap_css %}
-{% bootstrap_javascript %}
+{% extends "base.html" %}
 
 
-{% bootstrap_messages %}
-
-{% load staticfiles %}
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <title>Пользователь</title>
-</head>
-<body>
+{% block content %}
     <p align="right">
         <a class="btn btn-primary btn-sm" href="{% url 'add_person' person.id %}" role="button">Добавить пользователя</a>
         <a class="btn btn-primary btn-sm" href="{% url 'edit_person' person.id %}" role="button">Редактировать пользователя</a>
@@ -36,7 +22,5 @@
         {% endfor %}
         </li>
     </ul>
-{#{% endblock %}#}
 
-</body>
-</html>
+{% endblock %}

@@ -1,0 +1,18 @@
+{% load bootstrap3 %}
+<script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
+
+{% bootstrap_messages %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% block content %}{% endblock %}
+</body>
+{% block script %}{% endblock %}
+</html>

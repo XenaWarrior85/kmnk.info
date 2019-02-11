@@ -1,4 +1,4 @@
-
+{% extends "base.html" %}
 {% load bootstrap3 %}
 <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
 {% bootstrap_css %}
@@ -6,36 +6,31 @@
 
 
 {% bootstrap_messages %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Вход</title>
-    <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
-</head>
-<body>
-    {% for message in messages %}
-    {% endfor %}
 
-    <form method="POST" enctype="multipart/form-data" class="form">
-        {% csrf_token %}
 
-        {% bootstrap_form user_form layout='horizontal' error_types='all'%}
-        <div align="center" id ="result"></div>
-        <div align="center" id ="result1"></div>
-        {% buttons %}
-        <button type="submit" name="code" {{ disabled }} class="btn btn-primary center-block"
-        style="margin-bottom: 20px;">Отправить код</button>
-        {% bootstrap_form sms_form layout='horizontal' error_types='all' %}
-        {% block but %}
-        <button type="submit" name="reg" {{ disabled2 }} class="btn btn-primary center-block"
-        style="margin-top: 20px;">Войти</button>
-        {% endblock %}
-        {% endbuttons %}
-    </form>
 
-</body>
+{% block content %}
+<a class="btn btn-primary btn-sm" href="{% url 'person' id %}" role="button">Вернуться на страницу</a>
+<a class="btn btn-primary btn-sm" href="{% url 'authapp-logout' %}" role="button">Выход из аккаунта</a>
 
+        {% if sent %}
+            {% block message %}<h3>Пользователь создан</h3>{% endblock %}
+        {% endif %}
+
+        <form method="POST" enctype="multipart/form-data" class="form">
+            {% csrf_token %}
+            {% bootstrap_form user_form layout='horizontal' error_types='all'%}
+            <div align="center" id ="result"></div>
+            <div align="center" id ="result1"></div>
+            {% bootstrap_form person_form layout='horizontal' error_types='all'%}
+             <div align="center" id ="result2"></div>
+            {% bootstrap_form image_form layout='horizontal' error_types='all'%}
+            {% buttons %}
+            <input type="submit" value="Сохранить редактирование" class="btn btn-primary center-block" align="right">
+             {% endbuttons %}
+        </form>
+{% endblock %}
+{% block script %}
 <script type="text/javascript">
     $(document).ready(function(){
      // CSRF code
@@ -68,13 +63,13 @@
  }
  });
 });
-{% block script %}
 $('#id_username').on('input' , fun);
+
 var interval;
 function fun(){
     $.ajax({
         method: 'POST',
-        url: '/login/',
+        url: 'add',
         dataType: "json",
         cache: false,
         data:  $(this).serialize(),
@@ -83,7 +78,7 @@ function fun(){
                      console.log(response);
                      if(response['s'] ) {
                          $("#result1").show();
-                         $("#result1").html("<div class='alert alert-success'>Номер валидный</div>");
+                         $("#result1").html("<div class='alert alert-success'>Номер свободен</div>");
                          $("#result").hide();
 
                      }
@@ -103,7 +98,6 @@ function fun(){
         })
 
     }
-{% endblock %}
-</script>
 
-</html>
+</script>
+{% endblock %}

@@ -5,8 +5,11 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
 from .smsc_api import *
 import uuid
+
+from django.http import JsonResponse
 from django.contrib import messages
 from django.shortcuts import redirect
+
 
 counter,mes = "1","1"
 
@@ -17,6 +20,8 @@ def my_random_string(string_length=10):
     random = random.upper()
     random = random.replace("-", "")
     return random[0:string_length]
+
+
 
 
 def registration(request):
@@ -30,9 +35,15 @@ def registration(request):
     user_form = UserForm()
     sms_form = SmsForm()
     disabled,disabled2 = "","disabled" # Параметры кнопок,которые передаются в html
-    # в зависмости от состояние регитсрации
 
-    if request.method == "POST" and 'code' in request.POST:
+    if request.is_ajax():
+        user_form = UserForm(request.POST)
+        if user_form.is_valid():
+            return JsonResponse({'s': True})
+        else:
+            return JsonResponse({'error': user_form.errors})
+
+    if request.method == "POST" and 'code' in request.POST or request.is_ajax():
 
         user_form = UserForm (request.POST)
 
@@ -43,15 +54,16 @@ def registration(request):
             mes = my_random_string(4)
             print(mes)
             # mes = "5"
-            # counter = [ '19', '1', '0.9', '194.4' ]
+            # counter = ['19', '1', '0.9', '194.4' ]
             # d = [ '-1' ]
             counter = smsc.send_sms(phones=phone, message=mes, sender="me") # Отправка смс с
             # введёными данными пользователя
             status_phone = smsc.get_status(phone=phone, id=counter[0])
             print(status_phone)
+
             if len(counter)<3 and status_phone[0] != "-1":
-                #  проверка статуса отправки
-                messages.error(request, "Вы ввели неверный телефон!")
+                messages.error(request, "Такого номера не существует    ")
+
             else:
                 messages.success(request, "Код отправлен!")
                 disabled = "disabled"
@@ -83,6 +95,7 @@ def registration(request):
                 messages.error(request, "Вы ввели неверный код!")
                 disabled2 = ""
 
+
     return render (request, 'sign_ip.html',
                    {"user_form": user_form,
                     "sms_form": sms_form,
@@ -101,6 +114,17 @@ def MyLoginView(request):
     user_form = UsersForm2()
     sms_form = SmsForm()
     disabled,disabled2 = "","disabled"
+
+    if request.is_ajax():
+        user_form = UsersForm2(request.POST)
+        if user_form.is_valid():
+            if User.objects.filter(username=user_form.cleaned_data['username']).exists():
+                return JsonResponse({'s': True})
+            else:
+
+                return JsonResponse({'error': {"username": "Такого номера в базе не существует!"}})
+        else:
+            return JsonResponse({'error': user_form.errors})
 
     if request.method == "POST" and 'code' in request.POST:
 
@@ -121,10 +145,13 @@ def MyLoginView(request):
 
                 if len(counter) < 3 and phone_status[ 0 ] != "-1":
                     messages.error(request, "Вы ввели неверный телефон!")
+
                 else:
                     messages.success (request, "Код отправлен!")
                     disabled = "disabled"
                     disabled2 = ""
+                    data = {'message': phone}
+
 
             else:
                 messages.error (request, "Такого номера в базе не существует!")
@@ -166,3 +193,6 @@ def admin_add_person(request):
     """
 
     return render (request, 'admin_add.html', {"user_form": Person.objects.all()})
+
+
+
