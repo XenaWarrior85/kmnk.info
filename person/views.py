@@ -7,6 +7,8 @@ from django.urls import reverse
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
 from django.http import JsonResponse
+from django.contrib.auth.decorators import login_required
+
 
 def person(request, id):
     """
@@ -20,7 +22,7 @@ def person(request, id):
                    "image": image,
                    })
 
-
+@login_required(login_url='/login')
 def add_person(request, id):
     """
       Функция добавления профиля персоны
@@ -75,7 +77,7 @@ def add_person(request, id):
                     "person_form": person_form,
                     'sent': request.GET.get('sent', False)})
 
-
+@login_required(login_url='/login')
 def edit_person(request, id):
     """
       Функция редактирования персоны
