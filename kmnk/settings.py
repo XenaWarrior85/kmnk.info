@@ -91,7 +91,7 @@ DATABASES = {'default': {}}
 try:
     DATABASES = {
         'default': dj_database_url.config(
-            default=config('DATABASE_URL')
+            default='postgres://ohkotrqbrdfuuq:6ced75570af8f5c2c63fcef71226c5e7ccb875b326bd463a2c1f6999413e14cc@ec2-54-217-236-201.eu-west-1.compute.amazonaws.com:5432/d783na3e896kgv'
         )
     }
 except UndefinedValueError:
