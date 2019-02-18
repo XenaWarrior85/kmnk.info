@@ -10,8 +10,7 @@ from django.http import JsonResponse
 from django.contrib import messages
 from django.shortcuts import redirect
 
-
-counter,mes = "1","1"
+mes = "admi"
 
 
 def my_random_string(string_length=10):
@@ -22,19 +21,17 @@ def my_random_string(string_length=10):
     return random[0:string_length]
 
 
-
-
 def registration(request):
     """
          Функция регистрации профиля персоны
          user_form -  работает из админки и содержит поле username пользвоателя
          sms_form -  Нужна для обработки кода смс
     """
-    global counter,mes
 
     user_form = UserForm()
     sms_form = SmsForm()
-    disabled,disabled2 = "","disabled" # Параметры кнопок,которые передаются в html
+    disabled, disabled2 = "", "disabled" # Параметры кнопок,которые передаются в html
+    global mes
 
     if request.is_ajax():
         user_form = UserForm(request.POST)
@@ -51,9 +48,10 @@ def registration(request):
             #  Отправка сообщения и валидация номера
             smsc = SMSC()
             phone = user_form.cleaned_data['username']
+
             mes = my_random_string(4)
             print(mes)
-            # mes = "5"
+
             # counter = ['19', '1', '0.9', '194.4' ]
             # d = [ '-1' ]
             counter = smsc.send_sms(phones=phone, message=mes, sender="me") # Отправка смс с
@@ -69,13 +67,18 @@ def registration(request):
                 disabled = "disabled"
                 disabled2 = ""
 
+
     if request.method == "POST" and 'reg' in request.POST:
 
         user_form = UserForm(request.POST)
         sms_form = SmsForm(request.POST)
         print(mes)# код отправки
         if user_form.is_valid () and sms_form.is_valid ():
-            if mes == sms_form.cleaned_data['sms_mes']:# ПРоверка совпадает ли код пользователя и код отправленный ему
+            print(mes)
+            print(type(mes))
+            print(sms_form.cleaned_data['sms_mes'],"\\/\/")
+            print(type(sms_form.cleaned_data['sms_mes']))
+            if str(mes) == sms_form.cleaned_data['sms_mes']:# ПРоверка совпадает ли код пользователя и код отправленный ему
                 # создание и аутентификаци персоны по введёным данным пользователя
                 last_id = User.objects.latest('id').id
                 last_i = Person.objects.latest('id').id
@@ -110,7 +113,7 @@ def MyLoginView(request):
          user_form -  работает из админки и содержит поле username пользвоателя
          sms_form -  Нужна для обработки кода смс
        """
-    global counter,mes
+    global mes
     user_form = UsersForm2()
     sms_form = SmsForm()
     disabled,disabled2 = "","disabled"
