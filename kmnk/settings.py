@@ -19,7 +19,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = config('SECRET_KEY')
+SECRET_KEY = '151876fb-bfcb-43d8-a4e3-183addd94d7b'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -30,6 +30,7 @@ ALLOWED_HOSTS = [
     'kmnk.info',
     'www.kmnk.info',
     'demo-bootcamp32.herokuapp.com',
+    'kmnk-info.herokuapp.com',
 ]
 
 
@@ -91,7 +92,7 @@ DATABASES = {'default': {}}
 try:
     DATABASES = {
         'default': dj_database_url.config(
-            default=config('DATABASE_URL')
+            default='postgres://eqchogbsbqhvqj:a407eb2a86943d2abf4e442f5653da8aeb32524ba16297e8434aeff331008ed1@ec2-54-227-246-152.compute-1.amazonaws.com:5432/d6t8l3hnfieed4'
         )
     }
 except UndefinedValueError:
