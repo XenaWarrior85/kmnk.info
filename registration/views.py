@@ -10,7 +10,7 @@ from django.http import JsonResponse
 from django.contrib import messages
 from django.shortcuts import redirect
 
-mes = "admi"
+
 
 
 def my_random_string(string_length=10):
@@ -27,11 +27,10 @@ def registration(request):
          user_form -  работает из админки и содержит поле username пользвоателя
          sms_form -  Нужна для обработки кода смс
     """
-
+    global mes
     user_form = UserForm()
     sms_form = SmsForm()
-    disabled, disabled2 = "", "disabled" # Параметры кнопок,которые передаются в html
-    global mes
+    disabled, disabled2 = "", "disabled"# Параметры кнопок,которые передаются в html
 
     if request.is_ajax():
         user_form = UserForm(request.POST)
@@ -51,6 +50,7 @@ def registration(request):
 
             mes = my_random_string(4)
             print(mes)
+
 
             # counter = ['19', '1', '0.9', '194.4' ]
             # d = [ '-1' ]
@@ -74,8 +74,8 @@ def registration(request):
         sms_form = SmsForm(request.POST)
         print(mes)# код отправки
         if user_form.is_valid () and sms_form.is_valid ():
-            print(mes)
-            print(type(mes))
+            print(Person.sms_mes)
+            print(type(Person.sms_mes))
             print(sms_form.cleaned_data['sms_mes'],"\\/\/")
             print(type(sms_form.cleaned_data['sms_mes']))
             if str(mes) == sms_form.cleaned_data['sms_mes']:# ПРоверка совпадает ли код пользователя и код отправленный ему
@@ -97,8 +97,6 @@ def registration(request):
             else:
                 messages.error(request, "Вы ввели неверный код!")
                 disabled2 = ""
-
-
     return render (request, 'sign_ip.html',
                    {"user_form": user_form,
                     "sms_form": sms_form,
@@ -136,7 +134,7 @@ def MyLoginView(request):
             # проверка существует ли пользователь с таким номером или нет
             if User.objects.filter(username=user_form.cleaned_data['username']).exists():
                 # Отправка сообщения и валидация номера
-                smsc = SMSC ()
+                smsc = SMSC()
                 phone = user_form.cleaned_data[ 'username' ]
                 mes = my_random_string(4)
                 print (mes)
@@ -154,8 +152,6 @@ def MyLoginView(request):
                     disabled = "disabled"
                     disabled2 = ""
                     data = {'message': phone}
-
-
             else:
                 messages.error (request, "Такого номера в базе не существует!")
 
