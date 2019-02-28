@@ -72,7 +72,6 @@ def registration(request):
 
         user_form = UserForm(request.POST)
         sms_form = SmsForm(request.POST)
-        print(mes)# код отправки
         if user_form.is_valid () and sms_form.is_valid ():
             print(Person.sms_mes)
             print(type(Person.sms_mes))
@@ -137,7 +136,7 @@ def MyLoginView(request):
                 smsc = SMSC()
                 phone = user_form.cleaned_data[ 'username' ]
                 mes = my_random_string(4)
-                print (mes)
+                print(mes)
                 # mes = "5"
                 # counter = [ '19', '1', '0.9', '194.4' ]
                 # d = [ '-1' ]
