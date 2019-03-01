@@ -39,7 +39,7 @@ def registration(request):
         else:
             return JsonResponse({'error': user_form.errors})
 
-    if request.method == "POST" and 'code' in request.POST or request.is_ajax():
+    if request.method == "POST" and 'code' in request.POST:
 
         user_form = UserForm (request.POST)
 
@@ -50,7 +50,6 @@ def registration(request):
 
             mes = my_random_string(4)
             print(mes)
-
 
             # counter = ['19', '1', '0.9', '194.4' ]
             # d = [ '-1' ]
@@ -66,7 +65,6 @@ def registration(request):
                 messages.success(request, "Код отправлен!")
                 disabled = "disabled"
                 disabled2 = ""
-
 
     if request.method == "POST" and 'reg' in request.POST:
 
