@@ -2,7 +2,7 @@ from django.shortcuts import render
 
 
 __author__ = 'Mikhail Ivanov'  # type: str
-__company__ = 'IvanovsCo'
+__company__ = 'Ivanov@Co'
 
 
 
