@@ -136,9 +136,9 @@ def MyLoginView(request):
                 # mes = "5"
                 Sms_message = Person(id=1, sms_mes=mes)
                 Sms_message.save()
-                counter = [ '19', '1', '0.9', '194.4' ]
-                d = [ '-1' ]
-                #counter = smsc.send_sms(phones=phone, message=mes, sender="me")
+                #counter = [ '19', '1', '0.9', '194.4' ]
+                #d = [ '-1' ]
+                counter = smsc.send_sms(phones=phone, message=mes, sender="me")
                 phone_status = smsc.get_status(phone=phone, id=counter[0])
 
                 if len(counter) < 3 and phone_status[ 0 ] != "-1":
