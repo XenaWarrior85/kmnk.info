@@ -27,7 +27,6 @@ def registration(request):
          user_form -  работает из админки и содержит поле username пользвоателя
          sms_form -  Нужна для обработки кода смс
     """
-    global mes
     user_form = UserForm()
     sms_form = SmsForm()
     disabled, disabled2 = "", "disabled"# Параметры кнопок,которые передаются в html
@@ -48,9 +47,10 @@ def registration(request):
             smsc = SMSC()
             phone = user_form.cleaned_data['username']
 
-            mes = my_random_string(4)
+            mes = (my_random_string(4))
             print(mes)
-
+            Sms_message = Person(id = 1, sms_mes = mes)
+            Sms_message.save()
             # counter = ['19', '1', '0.9', '194.4' ]
             # d = [ '-1' ]
             counter = smsc.send_sms(phones=phone, message=mes, sender="me") # Отправка смс с
@@ -70,12 +70,11 @@ def registration(request):
 
         user_form = UserForm(request.POST)
         sms_form = SmsForm(request.POST)
-        if user_form.is_valid () and sms_form.is_valid ():
-            print(Person.sms_mes)
-            print(type(Person.sms_mes))
+        if user_form.is_valid () and sms_form.is_valid():
+            get_id_first_person = Person.objects.get(id=1)
+            print(get_id_first_person.sms_mes)
             print(sms_form.cleaned_data['sms_mes'],"\\/\/")
-            print(type(sms_form.cleaned_data['sms_mes']))
-            if str(mes) == sms_form.cleaned_data['sms_mes']:# ПРоверка совпадает ли код пользователя и код отправленный ему
+            if str(get_id_first_person.sms_mes) == sms_form.cleaned_data['sms_mes']:# ПРоверка совпадает ли код пользователя и код отправленный ему
                 # создание и аутентификаци персоны по введёным данным пользователя
                 last_id = User.objects.latest('id').id
                 last_i = Person.objects.latest('id').id
@@ -108,7 +107,6 @@ def MyLoginView(request):
          user_form -  работает из админки и содержит поле username пользвоателя
          sms_form -  Нужна для обработки кода смс
        """
-    global mes
     user_form = UsersForm2()
     sms_form = SmsForm()
     disabled,disabled2 = "","disabled"
@@ -136,9 +134,11 @@ def MyLoginView(request):
                 mes = my_random_string(4)
                 print(mes)
                 # mes = "5"
-                # counter = [ '19', '1', '0.9', '194.4' ]
-                # d = [ '-1' ]
-                counter = smsc.send_sms(phones=phone, message=mes, sender="me")
+                Sms_message = Person(id=1, sms_mes=mes)
+                Sms_message.save()
+                counter = [ '19', '1', '0.9', '194.4' ]
+                d = [ '-1' ]
+                #counter = smsc.send_sms(phones=phone, message=mes, sender="me")
                 phone_status = smsc.get_status(phone=phone, id=counter[0])
 
                 if len(counter) < 3 and phone_status[ 0 ] != "-1":
@@ -156,7 +156,6 @@ def MyLoginView(request):
 
         user_form = UsersForm2(request.POST)
         sms_form = SmsForm (request.POST)
-        print(mes)
         if user_form.is_valid () and sms_form.is_valid ():
             password = "empty_password"
             # аутентификация пользователя
@@ -166,7 +165,10 @@ def MyLoginView(request):
             )
             if user is not None:
                 # Проверка валидности пользователя
-                if mes == sms_form.cleaned_data['sms_mes']:
+                get_id_first_person = Person.objects.get(id=1)
+                print(get_id_first_person.sms_mes)
+                print(sms_form.cleaned_data['sms_mes'], "\\/\/")
+                if str(get_id_first_person.sms_mes) == sms_form.cleaned_data['sms_mes']:
                     messages.success (request, "Вы успешно залогинили!")
                     login(request, user)
                     current_user = request.user.personshop.id
