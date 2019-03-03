@@ -25,7 +25,7 @@ from django.contrib.auth.views import LogoutView
 urlpatterns = [
     path('', include('app_kmnk_main.urls')),
     path('admin/', admin.site.urls),
-    path('<int:id>/', views.person, name='app_person'),
+    path('<int:id>/', views.person, name='person'),
     path('<int:id>/add', views.add_person, name='add_person'),
     path('<int:id>/edit', views.edit_person, name='edit_person'),
     path('login/', wi.MyLoginView, name='authapp-login'),
