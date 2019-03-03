@@ -23,7 +23,7 @@ from django.conf import settings
 from django.contrib.auth.views import LogoutView
 
 urlpatterns = [
-    path('', include('kmnk_main.urls')),
+    path('', include('app_kmnk_main.urls')),
     path('admin/', admin.site.urls),
     path('<int:id>/', views.person, name='person'),
     path('<int:id>/add', views.add_person, name='add_person'),

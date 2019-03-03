@@ -45,7 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'kmnk',
-    'kmnk_main',
+    'app_kmnk_main',
     'place',
     'person',
     'registration',
