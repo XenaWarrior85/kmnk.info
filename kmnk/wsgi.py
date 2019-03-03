@@ -1,5 +1,5 @@
 """
-WSGI config for kmnk_project project.
+WSGI config for kmnk project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 
@@ -12,6 +12,6 @@ import os
 from django.core.wsgi import get_wsgi_application
 
 
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "kmnk_project.settings")
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "kmnk.settings")
 
 application = get_wsgi_application()
