@@ -17,8 +17,8 @@ def person(request, id):
     person = get_object_or_404(Person, id=id)
     image = Galery.objects.filter(person_id=id)
 
-    return render(request, 'app_person.html',
-                  {"app_person": person,
+    return render(request, 'person.html',
+                  {"person": person,
                    "image": image,
                    })
 
