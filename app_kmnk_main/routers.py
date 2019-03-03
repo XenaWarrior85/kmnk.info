@@ -1,5 +1,5 @@
 from rest_framework import routers
-from place.viewsets import PlaceAddressesViewSet
+from app_place.viewsets import PlaceAddressesViewSet
 
 router = routers.DefaultRouter()
 

@@ -9,8 +9,8 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('place', '0002_auto_20181103_1914'),
-        ('person', '__first__'),
+        ('app_place', '0002_auto_20181103_1914'),
+        ('app_person', '__first__'),
     ]
 
     operations = [
@@ -40,8 +40,8 @@ class Migration(migrations.Migration):
             name='Function',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('person', models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, related_name='function', to='person.Person')),
-                ('place', models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, related_name='function', to='place.PlaceAddress')),
+                ('app_person', models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, related_name='function', to='app_person.Person')),
+                ('app_place', models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, related_name='function', to='app_place.PlaceAddress')),
             ],
             options={
                 'verbose_name': 'Функция',

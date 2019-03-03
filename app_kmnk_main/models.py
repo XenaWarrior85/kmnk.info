@@ -1,6 +1,6 @@
 from django.db import models
-from person.models import Person
-from place.models import PlaceAddress
+from app_person.models import Person
+from app_place.models import PlaceAddress
 from .choices import KLASS_CHOICES
 
 
