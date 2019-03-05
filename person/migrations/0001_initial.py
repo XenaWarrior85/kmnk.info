@@ -40,7 +40,7 @@ class Migration(migrations.Migration):
         ),
         migrations.AddField(
             model_name='galery',
-            name='app_person',
-            field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, related_name='galery', to='app_person.Person'),
+            name='person',
+            field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, related_name='galery', to='person.Person'),
         ),
     ]

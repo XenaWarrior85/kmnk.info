@@ -47,7 +47,7 @@ INSTALLED_APPS = [
     'kmnk',
     'app_kmnk_main',
     'app_place',
-    'app_person',
+    'person',
     'app_registration',
     'django_tables2',
     'bootstrap3',

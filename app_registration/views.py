@@ -1,6 +1,6 @@
 from django.shortcuts import render
-from app_person.models import Person
-from app_person.forms import UserForm, SmsForm, UsersForm2
+from person.models import Person
+from person.forms import UserForm, SmsForm, UsersForm2
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
 from .smsc_api import *  # точно нужно всё импортировать?
@@ -178,7 +178,7 @@ def MyLoginView(request):
                     messages.success (request, "Вы успешно залогинили!")
                     login(request, user)
                     current_user = request.user.personshop.id
-                    return redirect('app_person', id=current_user)
+                    return redirect('person', id=current_user)
                 else:
                     messages.error(request, "Вы ввели неверный код!")
                 disabled2 = ""
