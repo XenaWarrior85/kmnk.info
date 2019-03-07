@@ -87,8 +87,8 @@ class Transaction(models.Model):
 
     # Время и дата транзакциии
     datetime = models.DateTimeField("Дата/время", auto_now_add=True)
-    from_whom = models.ForeignKey(Person, on_delete=models.DO_NOTHING, related_name="От_кого")
-    to_whom = models.ForeignKey(Person, on_delete=models.DO_NOTHING, related_name="Кому")
+    from_whom = models.ForeignKey(Person, on_delete=models.CASCADE, related_name="От_кого")
+    to_whom = models.ForeignKey(Person, on_delete=models.CASCADE, related_name="Кому")
     summ = models.DecimalField("Сумма", max_digits=30, decimal_places=2)
     price_w = models.ForeignKey(Price,  on_delete=models.CASCADE)
     # Хранение всех состояний транзакции

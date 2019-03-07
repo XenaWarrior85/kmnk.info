@@ -13,7 +13,7 @@ class GaleryInline(admin.TabularInline):
 
 class PersonAdmin(admin.ModelAdmin):
     exclude = ('sms_mes',)
-    inlines = [GaleryInline,]
+    inlines = [GaleryInline, ]
 
 
 admin.site.register(Person, PersonAdmin)
