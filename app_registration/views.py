@@ -3,7 +3,7 @@ from person.models import Person
 from person.forms import UserForm, SmsForm, UsersForm2
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
-from .smsc_api import *
+from .smsc_api import *  # точно нужно всё импортировать?
 import uuid
 from django.http import JsonResponse
 from django.contrib import messages
@@ -11,6 +11,7 @@ from django.shortcuts import redirect
 
 
 def my_random_string(string_length=10):
+    """Возвращает случайную строку"""  # а зачем случайная строка?
     """Возвращает случайную строку, нужно для отправки кода смс"""
     random = str(uuid.uuid4())  # конвертирование UUID4 в строку.
     random = random.upper()
@@ -41,7 +42,7 @@ def registration(request):
 
     if request.method == "POST" and 'code' in request.POST:
 
-        user_form = UserForm (request.POST)
+        user_form = UserForm(request.POST)
 
         if user_form.is_valid():
             #  Отправка сообщения и валидация номера
@@ -49,7 +50,7 @@ def registration(request):
             phone = user_form.cleaned_data['username']  # Форма ввода телефона
             mes = (my_random_string(4))  # смс пароль
             print(mes)
-            Sms_message = Person(id=1, sms_mes=mes)  # Сохранения пароля в модель - sms_mes
+            Sms_message = Person(id=1, sms_mes=mes)
             Sms_message.save()
             # counter = ['19', '1', '0.9', '194.4' ] #  Симуляция успешнйо отправки смс, для дэбага
             # d = [ '-1' ]
@@ -58,10 +59,9 @@ def registration(request):
             status_phone = smsc.get_status(phone=phone, id=counter[0])
             print(status_phone)
 
-            if len(counter)<3 and status_phone[0] != "-1":
-                #  Проверка со стороны сервиса SMSC на валидность номера
-                messages.error(request, "Такого номера не существует    ")
-
+            if len(counter) < 3 and status_phone[0] != "-1":
+                #  Проверка со стороны сервиса SMSC
+                messages.error(request, "Такого номера нет в базе или Вы ошиблись при вводе номера")
             else:
                 messages.success(request, "Код отправлен!")
                 disabled = "disabled"
@@ -73,45 +73,44 @@ def registration(request):
         sms_form = SmsForm(request.POST)
         if user_form.is_valid () and sms_form.is_valid():
             get_id_first_person = Person.objects.get(id=1)  # Получение пароля из смс
-            # ПРоверка совпадает ли код отправленный персоне и код введенный пользователем в форме
+            # Проверка: совпадает ли код пользователя и код, отправленный ему
             if str(get_id_first_person.sms_mes) == sms_form.cleaned_data['sms_mes']:
-                # создание и аутентификаци персоны по введёным данным пользователя
-                last_id = User.objects.latest('id').id  # Последний телефон в БД
-                last_i = Person.objects.latest('id').id  # Последняя персона в БД
+                # создание или аутентификация персоны по введёным данным пользователя
+                last_id = User.objects.latest('id').id
+                last_i = Person.objects.latest('id').id
                 password = "empty_password"
                 # СОхранение номера телефона пользователя в модели
                 User.objects.create_user(**user_form.cleaned_data, id=int(last_id)+1, password=password)
                 create_person = Person(users_id = last_id+1, id = last_i+1) # ПРисваивание id новому пользователю
                 create_person.save()
                 user = authenticate(
-                    username=user_form.cleaned_data[ 'username' ],
+                    username=user_form.cleaned_data['username'],
                     password=password
                 )
                 login(request, user)
-                messages.success (request, "Вы успешно зарегестрированы!")
-                # Перенаправление на Добавление ФИО. фотографии и остальных данных для персоны
+                messages.success(request, "Вы успешно зарегистрированы!")
                 return redirect('edit_person', id=last_i+1)
             else:
-                messages.error(request, "Вы ввели неверный код!")
+                messages.error(request, "Код не подходит, Вы не ошиблись? Проверьте, пожалуйста")
                 disabled2 = ""
     return render(request, 'sign_ip.html',
                    {"user_form": user_form,
                     "sms_form": sms_form,
                     "id": id,
                     "disabled": disabled,
-                    "disabled2":disabled2})
+                    "disabled2": disabled2})
 
 
 def MyLoginView(request):
     """
+         Функция авторизации
+         user_form -  работает из админки и содержит поле username пользователя (номер телефона)
          Функция входа пользователя на сайт
-         user_form -  работает из админки и содержит поле username пользвоателя
-         user_form -  работает из админки и содержит поле username пользвоателя
          sms_form -  Нужна для обработки кода смс
-       """
+    """
     user_form = UsersForm2()
     sms_form = SmsForm()
-    disabled,disabled2 = "","disabled"
+    disabled, disabled2 = "","disabled"
 
     if request.is_ajax():
         """
@@ -124,7 +123,8 @@ def MyLoginView(request):
             if User.objects.filter(username=user_form.cleaned_data['username']).exists():
                 return JsonResponse({'s': True})
             else:
-                return JsonResponse({'error': {"username": "Такого номера в базе не существует!"}})
+
+                return JsonResponse({'error': {"username": "Этого номера еще нет, Вам нужно зарегистрироваться"}})
         else:
             return JsonResponse({'error': user_form.errors})
 
@@ -191,7 +191,7 @@ def MyLoginView(request):
 
 def admin_add_person(request):
     """
-          Функция отображения всех данных пользователей
+          Функция отображения всех данных пользователей - список
     """
 
     return render (request, 'admin_add.html', {"user_form": Person.objects.all()})

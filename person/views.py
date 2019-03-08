@@ -45,10 +45,10 @@ def add_person(request, id):
         if user_form.is_valid():
             return JsonResponse({'s': True})
         else:
-            # Ошибки отправляються из втроенного валидатора Django
             return JsonResponse({'error': user_form.errors})
 
     if request.method == "POST":
+
         user_form = UserForm(request.POST)
         person_form = PersonForm(request.POST)
         image_form = ImageForm(request.POST, request.FILES)
@@ -85,7 +85,6 @@ def add_person(request, id):
                     "image_form": image_form,
                     "person_form": person_form,
                     'sent': request.GET.get('sent', False)})
-
 
 @login_required(login_url='/login')
 def edit_person(request, id):
@@ -142,4 +141,4 @@ def edit_person(request, id):
                     "id": id,
                     "image_form": image_form,
                     "person_form": person_form,
-                    "sent": request.GET.get('sent', False)})
+                    'sent': request.GET.get('sent', False)})

@@ -45,10 +45,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'kmnk',
-    'kmnk_main',
-    'place',
+    'app_kmnk_main',
+    'app_place',
     'person',
-    'registration',
+    'app_registration',
     'django_tables2',
     'bootstrap3',
 ]
