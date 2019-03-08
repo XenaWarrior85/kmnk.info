@@ -48,7 +48,6 @@ class SmsForm(forms.ModelForm):
 
 class PersonForm(forms.ModelForm):
     # Класс формы для добавления персоны
-    # проверить дублировнаие first name second name
     class Meta:
         model = Person
         fields = ( 'first_name', 'second_name', 'third_name', 'birthday', 'id')

@@ -22,11 +22,13 @@ def person(request, id):
                    "image": image,
                    })
 
+
 @login_required(login_url='/login')
 def add_person(request, id):
     """
       Функция добавления профиля персоны
       user_form -  работает из админки и содержит поля username и пароля пользвоателя
+      image_form - содержит фотографию персоны из модели галереи
       person_form -  содержит поля из модели персоны
     """
     user_form = UserForm()
@@ -34,6 +36,10 @@ def add_person(request, id):
     person_form = PersonForm()
 
     if request.is_ajax():
+        """
+        Если запрос на бэкенд , это ajax запрос, 
+        то бэкенд валидирует данные введйнные пользователем в форму телефона - user_form
+        """
         user_form = UserForm(request.POST)
 
         if user_form.is_valid():
@@ -48,21 +54,24 @@ def add_person(request, id):
         image_form = ImageForm(request.POST, request.FILES)
 
         if user_form.is_valid() and image_form.is_valid() and person_form.is_valid():
-            last_id = Person.objects.latest('id').id
-            last_id1 = User.objects.latest('id').id
+            # Проверяется валидность форм, валидаторы задаются в файле forms.py
+            last_id = Person.objects.latest('id').id  # Последняя персона
+            last_id1 = User.objects.latest('id').id  # Последний телефон в базе
             password = "empty_password"
+            # Сохранение номера в базе данных с прописанным паролем( Пароль роли не играет и не валидируется)
             new_user = User.objects.create_user(**user_form.cleaned_data, id=int(last_id1)+1, password=password)
             new_user.person_id = int(last_id+1)
             new_person = person_form.save(commit=False,)
-            new_person.id = last_id + 1
+            new_person.id = last_id + 1  # Поиск ещё не занятого id пользователя
             new_person.users = new_user
-            new_person.save()
+            new_person.save()   # Сохранение пользователя со всеми введёнными данными
             new_image = image_form.save(commit=False)
             new_image.person_id = last_id+1
             new_image.users = new_user
-            new_image.save()
+            new_image.save()  # Сохранение фото пользователя
 
             user = authenticate(
+                #  Вход пользователя в свою учтённыу запись
                 username=user_form.cleaned_data['username'],
                 password=password
             )
@@ -81,7 +90,9 @@ def add_person(request, id):
 def edit_person(request, id):
     """
       Функция редактирования персоны
+      users_id - id выбранного пользователя
       user_form -  работает из админки и содержит поля username и пароля пользвоателя
+      image_form - содержит фотографию персоны из модели галереи
       person_form -  содержит поля из модели персоны
     """
 
@@ -96,13 +107,15 @@ def edit_person(request, id):
     person_form = PersonForm(instance=Person.objects.get(id=id))
 
     if request.is_ajax():
+        """
+        Если запрос на бэкенд , это ajax запрос, 
+        то бэкенд валидирует данные введйнные пользователем в форму телефона - user_form
+        """
         user_form = UserForm(request.POST)
-
         if user_form.is_valid():
             return JsonResponse({'s': True})
         else:
             return JsonResponse({'error': user_form.errors})
-
 
     if request.method == "POST":
         user_form = UserForm(request.POST, instance=User.objects.get(id=users_id))
@@ -111,9 +124,11 @@ def edit_person(request, id):
             #  Если у пользователя нет изображения, тоо вызывается ошибка и форме присваивается знаечние None
             image_form = ImageForm(request.POST, request.FILES,instance=ImageForm2)
         except:
-            image_form = ImageForm (request.POST, request.FILES, instance=Galery.objects.get ())
+            image_form = ImageForm (request.POST, request.FILES, instance=Galery.objects.get())
 
         if user_form .is_valid() and image_form.is_valid() and person_form.is_valid():
+            # Проверяется валидность форм, валидаторы задаются в файле forms.py
+            # Так как это редактирование , никаких доп проверок и созданий заново не требуется
             user_form .save()
             person_form.save()
             new_image = image_form.save(commit=False)

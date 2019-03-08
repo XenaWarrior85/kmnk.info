@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Person, Galery,Transaction, Price, TAG
+from .models import *
 
 
 class GaleryInline(admin.TabularInline):
@@ -12,8 +12,8 @@ class GaleryInline(admin.TabularInline):
 
 
 class PersonAdmin(admin.ModelAdmin):
-
-    inlines = [GaleryInline,]
+    exclude = ('sms_mes',)
+    inlines = [GaleryInline, ]
 
 
 admin.site.register(Person, PersonAdmin)
@@ -23,3 +23,7 @@ admin.site.register(Transaction)
 admin.site.register(Price)
 
 admin.site.register(TAG)
+
+admin.site.register(Group)
+
+admin.site.register(Units)
