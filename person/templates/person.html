@@ -1,6 +1,6 @@
 {% extends "base.html" %}
-
-
+    {% block navbar %}{% endblock %}
+{% block navigation %}{% endblock %}
 {% block content %}
     <p align="right">
         <a class="btn btn-primary btn-sm" href="{% url 'add_person' person.id %}" role="button">Добавить пользователя</a>
@@ -24,3 +24,4 @@
     </ul>
 
 {% endblock %}
+{% block footer %}{% endblock %}
