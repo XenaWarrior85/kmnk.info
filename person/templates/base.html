@@ -15,7 +15,7 @@
 </head>
 <body>
 {% block navbar %} <!-- Блок глобальной навигации (верхнее меню) или хэдер??? -->
-    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation" style="background-color: #4f839f !important"> <!-- контейнер плашки резина на всю ширину -->
+    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation" style="background-color:#4f839f !important"> <!-- контейнер прибитой плашки -->
       <div class="container"> <!-- контейнер для ???-->
         <div class="navbar-header"> <!-- контейнер для свёрнутого меню?-->
           <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -103,5 +103,5 @@
     </footer>
 {% endblock %}
 </body>
-{% block script %}{% endblock %}
+{% block script %}{% endblock %} <!-- зачем этот блок??? -->
 </html>
