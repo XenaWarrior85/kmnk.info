@@ -7,7 +7,7 @@
 
 {% bootstrap_messages %}
 
-
+{% block navigation %}{% endblock %}
 
 {% block content %}
 <a class="btn btn-primary btn-sm" href="{% url 'person' id %}" role="button">Вернуться на страницу</a>
@@ -101,3 +101,4 @@ function fun(){
 
 </script>
 {% endblock %}
+{% block footer %}{% endblock %}
