@@ -1,19 +1,20 @@
 {% extends "base.html" %}
-    {% block navbar %}{% endblock %}
-{% block navigation %}{% endblock %}
+{% block navbar %}что-то в навиг.блоке{% endblock %}
+{% block navigation %}что-то во втором навиг.блоке{% endblock %}
+
 {% block content %}
     <p align="right">
-        <a class="btn btn-primary btn-sm" href="{% url 'add_person' person.id %}" role="button">Добавить пользователя</a>
-        <a class="btn btn-primary btn-sm" href="{% url 'edit_person' person.id %}" role="button">Редактировать пользователя</a>
-        <a class="btn btn-primary btn-sm" href="{% url 'authapp-logout' %}" role="button">Выход из аккаунта</a>
+        <a class="btn btn-primary btn-sm" href="{% url 'add_person' person.id %}" role="button">Добавить человека</a>
+        <a class="btn btn-primary btn-sm" href="{% url 'edit_person' person.id %}" role="button">Редактировать</a>
+        <a class="btn btn-primary btn-sm" href="{% url 'authapp-logout' %}" role="button">Выйти из аккаунта</a>
     </p>
 
 
-    <h1>Данные пользователя: </h1>
+    <h1>Об этом человеке: </h1>
     <ul class="list-group">
-        <li class="list-group-item"><strong>Телефон:</strong> {{  person.users}}</li>
-        <li class="list-group-item"><strong>Полное ФИО:</strong>{{  person.second_name}} {{  person.first_name}} {{  person.third_name}}</li>
-        <li class="list-group-item"><strong>Дата рождения:</strong> {{  person.birthday}}</li>
+        <li class="list-group-item"><strong>Его(её) зовут: </strong>{{person.second_name}} {{person.first_name}} {{person.third_name}}</li>
+        <li class="list-group-item"><strong>Телефон: </strong>{{person.users}}</li>
+        <li class="list-group-item"><strong>Дата рождения: </strong>{{person.birthday}}</li>
         <li class="list-group-item"><strong>Фотографии: </strong>
         {% for i in image %}
             {% if i.image %}
@@ -22,6 +23,6 @@
         {% endfor %}
         </li>
     </ul>
-
 {% endblock %}
-{% block footer %}{% endblock %}
+
+{% block footer %}что-то в подвале{% endblock %}
