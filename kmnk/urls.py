@@ -16,22 +16,23 @@ Including another URLconf
 
 from person import views
 from app_registration import views as wi
-from django.urls import path, include
+from django.urls import path
 from django.contrib import admin
 from django.conf.urls.static import static
 from django.conf import settings
 from django.contrib.auth.views import LogoutView
+from app_kmnk_main import views as kmnk_view
 
 urlpatterns = [
-    path('', include('app_kmnk_main.urls')),
     path('admin/', admin.site.urls),
     path('<int:id>/', views.person, name='person'),
     path('<int:id>/add', views.add_person, name='add_person'),
     path('<int:id>/edit', views.edit_person, name='edit_person'),
     path('login/', wi.MyLoginView, name='authapp-login'),
     path('logout/', LogoutView.as_view(next_page='/'), name='authapp-logout'),
-    path('app_registration/', wi.registration, name="signup"),
-    path('admin_view/', wi.admin_add_person, name="admin_view")
+    path('registration/', wi.registration, name="signup"),
+    path('admin_view/', wi.admin_add_person, name="admin_view"),
+    path('', kmnk_view.index, name='index'),
 
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 

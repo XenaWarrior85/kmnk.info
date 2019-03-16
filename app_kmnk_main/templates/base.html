@@ -1,0 +1,80 @@
+{% load static %}
+{% load bootstrap3 %}
+<script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
+
+{% bootstrap_messages %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Бюро добрых услуг Краснокаменки на Южном берегу Крыма{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'blog.css' %}">
+</head>
+<body>
+
+{% block navbar %} <!-- Блок глобальной навигации (верхнее меню) или хэдер??? -->
+    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation" 
+                         style="background-color:#4f839f !important;"> <!-- контейнер прибитой плашки -->
+      <div class="container"> <!-- контейнер для ???-->
+        <div class="navbar-header"> <!-- контейнер для свёрнутого меню?-->
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand " href="/" 
+             style="color:white !important; font-size:100%">Бюро добрых услуг посёлка Краснокаменка Южного берега Крыма. +7-978-934-87-07</a>
+        </div>
+        <div class="collapse navbar-collapse" ><!-- пункты верхнего меню??? -->
+          <ul class="nav navbar-nav">
+  <li><a href="/"  style="color: black !important">На главную</a></li>
+  <li><a href="/2"  style="color: black !important">Люди</a></li>
+              <li><a href="#"  style="color: black !important">О нас</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+{% endblock %}
+          
+{% block navigation %} <!-- блок левой (контекстной) навигации (вынести в темплейт 2-ого уровня) -->
+<div class = "container top-buffer container-mar "> <!-- контейнер для колонки -->
+ <div class = "row">
+ <div class = "col-md-3 col-sm-6  no-margin">
+<!--<nav class="navmenu navmenu-default fixed-left" role="navigation">-->
+
+  <!--<ul class="nav navmenu-nav">-->
+  <!--<li><a href="/"  style="color: black !important">На главную</a></li>-->
+  <!--<li><a href="/2"  style="color: black !important">Люди</a></li>-->
+    <!--<li class="dropdown"> &lt;!&ndash; раскрывающийся список &ndash;&gt;-->
+      <!--<a href="#" class="dropdown-toggle" data-toggle="dropdown">Здесь вложен список<b class="caret"></b></a>-->
+      <!--<ul class="dropdown-menu navmenu-nav" role="menu">-->
+        <!--<li><a href="#">Пункт 3.1</a></li>-->
+        <!--<li><a href="#">Пункт 3.2</a></li>-->
+        <!--<li><a href="#">Пункт 3.3</a></li>-->
+        <!--<li><a href="#">Пункт 3.4</a></li>-->
+      <!--</ul>-->
+    <!--</li>-->
+  <!--</ul>-->
+<!--</nav>-->
+</div>
+{% endblock %}
+
+{% block content %} <!-- блок контента для главной. Вынести в собственный темплейт-->
+
+{% endblock %}
+
+{% block footer %} <!-- блок футера (подвал) -->
+    <footer class="footer navbar-fixed-bottom" style="color:white; background-color:#4f839f !important">
+    <div class="container">
+    Приходите, звоните или пишите нам по e-mail: <a href="mailto:kinoafisharu@gmail.com" style="color:black !important">kinoafisharu@gmail.com</a><p>
+    Канал на Ютьюб: <a href="https://www.youtube.com/channel/UCkJtsloc8LcJGT3uhIGHu-A" style="color:black !important">жми сюда</a><p></p>
+    </div>
+    </footer>
+{% endblock %}
+</body>
+{% block script %}{% endblock %} <!-- зачем этот блок??? -->
+</html>
