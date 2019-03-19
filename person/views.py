@@ -12,6 +12,7 @@ from django.views.generic.list import ListView
 from django.views import generic
 
 
+@login_required(login_url='/login')
 def person(request, id):
     """
     Функция отображения профиля персоны
@@ -146,15 +147,23 @@ def edit_person(request, id):
                     'sent': request.GET.get('sent', False)})
 
 
-class ArtistView(generic.ListView):
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
+
+
+class PersonView(generic.ListView):
     model = Person
     template_name = 'person_main.html'
     queryset = Person.objects.filter()[:100]
     context_object_name = 'all_persons'
 
+    @method_decorator(login_required(login_url='/login'))
+    def dispatch(self, *args, **kwargs):
+        return super(PersonView, self).dispatch(*args, **kwargs)
+
     def get_context_data(self, **kwargs):
         # В первую очередь получаем базовую реализацию контекста
-        context = super(ArtistView, self).get_context_data(**kwargs)
+        context = super(PersonView, self).get_context_data(**kwargs)
         # Добавляем новую переменную к контексту и иниуиализируем ее некоторым значением
         context['image'] = Galery.objects.filter(person_id=2)
         return context

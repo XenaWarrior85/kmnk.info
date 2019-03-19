@@ -25,7 +25,7 @@ from app_kmnk_main import views as kmnk_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('person/', views.ArtistView.as_view(), name='person_main'),
+    path('person/', views.PersonView.as_view(), name='person_main'),
     path('person/<int:id>/', views.person, name='person'),
     path('person/<int:id>/add', views.add_person, name='add_person'),
     path('person/<int:id>/edit', views.edit_person, name='edit_person'),
