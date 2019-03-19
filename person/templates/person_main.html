@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block navigation %} <!-- блок левой (контекстной) навигации (вынести в темплейт 2-ого уровня) -->
+<div class = "container top-buffer container-mar "> <!-- контейнер для колонки -->
+ <div class = "row">
+ <div class = "col-md-">
+<!--<nav class="navmenu navmenu-default fixed-left" role="navigation">-->
+
+  <!--<ul class="nav navmenu-nav">-->
+  <!--<li><a href="/"  style="color: black !important">На главную</a></li>-->
+  <!--<li><a href="/2"  style="color: black !important">Люди</a></li>-->
+    <!--<li class="dropdown"> &lt;!&ndash; раскрывающийся список &ndash;&gt;-->
+      <!--<a href="#" class="dropdown-toggle" data-toggle="dropdown">Здесь вложен список<b class="caret"></b></a>-->
+      <!--<ul class="dropdown-menu navmenu-nav" role="menu">-->
+        <!--<li><a href="#">Пункт 3.1</a></li>-->
+        <!--<li><a href="#">Пункт 3.2</a></li>-->
+        <!--<li><a href="#">Пункт 3.3</a></li>-->
+        <!--<li><a href="#">Пункт 3.4</a></li>-->
+      <!--</ul>-->
+    <!--</li>-->
+  <!--</ul>-->
+<!--</nav>-->
+</div>
+ </div>
+{% endblock %}
+{% block content %}
+<div class = "col-md-18" style="margin-left:10%">
+    <p align="right">
+    </p>
+    {% for i in all_persons %}
+    <h1>Пользователь: </h1>
+    <ul class="list-group">
+        <li class="list-group-item"><strong>Его(её) зовут: </strong>{{i.second_name}} {{i.first_name}}
+            {{i.third_name}}</li>
+        <li class="list-group-item"><strong>Телефон: </strong>{{i.users}}</li>
+        <li class="list-group-item"><strong>Дата рождения: </strong>{{i.birthday}}</li>
+        <li class="list-group-item"><strong>Фотографии: </strong>
+
+        {% for j in image %}
+            {% if j.image %}
+                <img src="{{j.image_url }}" alt="{{ i.first_name }}" class="img-responsive" width="350" height="350">
+            {% endif %}
+        {% endfor %}
+        </li>
+    </ul>
+    {% endfor %}
+</div>
+</div>
+{% endblock %}

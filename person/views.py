@@ -8,6 +8,8 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
 from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
+from django.views.generic.list import ListView
+from django.views import generic
 
 
 def person(request, id):
@@ -142,3 +144,17 @@ def edit_person(request, id):
                     "image_form": image_form,
                     "person_form": person_form,
                     'sent': request.GET.get('sent', False)})
+
+
+class ArtistView(generic.ListView):
+    model = Person
+    template_name = 'person_main.html'
+    queryset = Person.objects.filter()[:100]
+    context_object_name = 'all_persons'
+
+    def get_context_data(self, **kwargs):
+        # В первую очередь получаем базовую реализацию контекста
+        context = super(ArtistView, self).get_context_data(**kwargs)
+        # Добавляем новую переменную к контексту и иниуиализируем ее некоторым значением
+        context['image'] = Galery.objects.filter(person_id=2)
+        return context
