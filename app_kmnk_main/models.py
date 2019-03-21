@@ -1,3 +1,4 @@
+# здесь должна быть документация: в чем суть приложения, почему и зачем именно такие модели и т.д.
 from django.db import models
 from person.models import Person
 from app_place.models import PlaceAddress
