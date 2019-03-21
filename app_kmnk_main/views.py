@@ -1,7 +1,7 @@
 from django.shortcuts import render
 
 
-__author__ = 'Mikhail Ivanov'  # type: str
+__author__ = 'не Ivanov'
 __company__ = 'Ivanov@Co'
 
 # каково назначение этого рендера? Можно ли и как обойтись без него?
