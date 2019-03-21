@@ -3,7 +3,7 @@
 {% block content %} <!-- блок контента - здесь -->
 <div class = "col-md-18" style="margin-left:10%"> <!-- отступ слева на 10% ширины -->
     {% for i in all_persons %} <!-- цикл выборки всех персон - почему не лист из модели? -->
-    <ul class="list-group">
+    <ul class="list-group"> <!-- как сделать клибабельным эту строку? -->
         <li class="list-group-item">{{i.second_name}} {{i.first_name}} {{i.third_name}}
         </li>
     </ul>
