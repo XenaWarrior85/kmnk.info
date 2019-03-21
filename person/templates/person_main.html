@@ -4,7 +4,7 @@
 <div class = "col-md-18" style="margin-left:10%"> <!-- отступ слева на 10% ширины -->
     {% for i in all_persons %} <!-- цикл выборки всех персон - почему не лист из модели? -->
     <ul class="list-group"> <!-- как сделать клибабельным эту строку? -->
-        <li class="list-group-item">{{i.second_name}} {{i.first_name}} {{i.third_name}}
+        <li class="list-group-item"><a href="{{i.id}}">{{i.second_name}} {{i.first_name}} {{i.third_name}}</a>
         </li>
     </ul>
     {% endfor %} <!-- добавить разбивку по страницам, если список более 50-ти -->

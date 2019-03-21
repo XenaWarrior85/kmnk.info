@@ -34,6 +34,9 @@ class Person(models.Model):
     first_name = models.CharField('Имя', max_length=100, null=True, blank=False)
     second_name = models.CharField('Фамилия', max_length=100, null=True, blank=False)
     third_name = models.CharField('Отчество', max_length=100, null=True, blank=False)
+    first_name_lat = models.CharField('Name', max_length=100, null=True, blank=False)
+    second_name_lat = models.CharField('Second', max_length=100, null=True, blank=False)
+    third_name_lat = models.CharField('Third', max_length=100, null=True, blank=False)
     birthday = models.DateField('Дата рождения', null=True, blank=True)
     # Смс сообщение , которое присылается пользователю при входе и регистрации
     sms_mes = models.CharField('Сообщение', max_length=100, null=True, blank=True)
@@ -43,6 +46,7 @@ class Person(models.Model):
         validators=[MaxValueValidator(5), MinValueValidator(2)]
      )
     tag = models.ForeignKey(TAG, on_delete=models.CASCADE, null=True)
+
 
     def __str__(self):
         return '{second_name} {first_name} {third_name}({birthday}){sms_mes}'.format (
@@ -99,6 +103,8 @@ class Transaction(models.Model):
 # Модель ГАЛЕРЕЯ
 """
 
+
+
 class Galery(models.Model):
     # Модель в которой хранится соответствие персоны и его фоторгафий
     image = models.ImageField(upload_to='person_photo', null=True, blank=True, default='')
@@ -108,7 +114,7 @@ class Galery(models.Model):
         verbose_name = 'Галерея'
         verbose_name_plural = 'Галереи'
 
-    # Отображение пути к фотографии
+
     @property
     def image_url(self):
         if self.image and hasattr(self.image, 'url'):
