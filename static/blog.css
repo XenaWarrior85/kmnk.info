@@ -12,13 +12,13 @@ html {
   min-height: 100%;
 }
 body {
-  /* Margin bottom by footer height */
+  /* отступ снизу до футера (почему-то не срабатывает для главной) */
   margin-bottom: 360px;
 }
 #footer {
   position: absolute;
   bottom: 0;
   width: 100%;
-  /* Set the fixed height of the footer here */
-  height: 60px;
+  /* высота футера */
+  height: 120px;
 }
