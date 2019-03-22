@@ -13,7 +13,7 @@ html {
 }
 body {
   /* Margin bottom by footer height */
-  margin-bottom: 120px;
+  margin-bottom: 360px;
 }
 #footer {
   position: absolute;
