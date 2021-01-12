@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 import os
 import sys
+#heroku config:set DISABLE_COLLECTSTATIC=1 #исправлена ошибка  Error while running '$ python manage.py collectstatic --noinput'.
 
 if __name__ == "__main__":
     os.environ.setdefault("DJANGO_SETTINGS_MODULE", "kmnk.settings")
@@ -13,4 +14,3 @@ if __name__ == "__main__":
             "forget to activate a virtual environment?"
         ) from exc
     execute_from_command_line(sys.argv)
-$ heroku config:set DISABLE_COLLECTSTATIC=1 #исправлена ошибка  Error while running '$ python manage.py collectstatic --noinput'.
